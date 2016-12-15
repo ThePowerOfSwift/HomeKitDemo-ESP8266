@@ -6,8 +6,9 @@
 #include <DallasTemperature.h>
 #include <Servo.h> 
 
-// Data wire is plugged into port 2 on the Arduino
+#define LED_BUS 5
 #define ONE_WIRE_BUS 12
+#define COFFEE_CONTROL_BUS 13
 
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
@@ -47,8 +48,8 @@ void setup(void) {
   rest.title("aREST UI Demo");
 
   // Create button to control pin 5 and 13 you should provide your pins here
-  rest.button(5);
-  rest.button(13);
+  rest.button(LED_BUS);
+  rest.button(COFFEE_CONTROL_BUS);
 
   //for servo you should attach 
   /*myservo.attach(4);*/
@@ -111,7 +112,7 @@ int coffeeControl(String command) {
   // Get state from command
   int state = command.toInt();
 
-  digitalWrite(13, state);
+  digitalWrite(COFFEE_CONTROL_BUS, state);
   return 1;
 }
 
@@ -122,7 +123,7 @@ int ledControl(String command) {
   // Get state from command
   int state = command.toInt();
 
-  digitalWrite(5, state);
+  digitalWrite(LED_BUS, state);
   return 1;
 }
 
